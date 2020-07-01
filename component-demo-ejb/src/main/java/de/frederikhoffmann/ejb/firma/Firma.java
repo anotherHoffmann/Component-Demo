@@ -18,7 +18,7 @@ public class Firma implements Serializable {
 
 	private String name;
 
-	@OneToMany(mappedBy = "firma",fetch = FetchType.EAGER)
+	@OneToMany(mappedBy = "firma",fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	@XmlTransient
 	private List<Person> personen;
 

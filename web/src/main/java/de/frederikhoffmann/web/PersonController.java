@@ -3,19 +3,17 @@ package de.frederikhoffmann.web;
 import de.frederikhoffmann.ejb.person.Person;
 import de.frederikhoffmann.ejb.person.PersonDAOLocal;
 
-import javax.ejb.EJB;
 import javax.inject.Inject;
 import javax.ws.rs.*;
 import javax.ws.rs.core.GenericEntity;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriBuilder;
-import java.util.ArrayList;
 import java.util.List;
 
 @Path("/person")
 public class PersonController {
-	@EJB
+	@Inject
 	PersonDAOLocal personDAOLocal;
 
 	@GET
@@ -24,7 +22,9 @@ public class PersonController {
 		List<Person> people = personDAOLocal.readAllPersons();
 
 		// Nutzung der Generic Entity, da der sonst nicht mit einer List klar kommt
-		GenericEntity<List<Person>> entity = new GenericEntity<List<Person>>(people){};
+		GenericEntity<List<Person>> entity = new GenericEntity<List<Person>>(people) {
+
+		};
 		return Response.ok(entity).build();
 	}
 

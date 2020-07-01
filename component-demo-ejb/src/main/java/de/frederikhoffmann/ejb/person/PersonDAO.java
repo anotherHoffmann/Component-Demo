@@ -1,10 +1,14 @@
 package de.frederikhoffmann.ejb.person;
 
 import javax.ejb.Stateless;
+import javax.enterprise.inject.Default;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import java.util.List;
 
+/**
+ * Da die Klasse keinen Qualifier hat, bekommt sie vom Compiler den Qualifier {@link Default} zugewiesen
+ */
 @Stateless
 public class PersonDAO implements PersonDAOLocal {
 	@PersistenceContext
