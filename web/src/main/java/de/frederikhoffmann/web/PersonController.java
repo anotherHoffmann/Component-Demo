@@ -39,6 +39,7 @@ public class PersonController {
 	@Consumes({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })
 	public Response createPerson(Person person) {
 		int id = personDAOLocal.createPerson(person);
+		// UriBuilder ist nicht klausurrelevant
 		return Response.created(UriBuilder.fromPath("/person").path("/" + id).build()).build();
 	}
 
