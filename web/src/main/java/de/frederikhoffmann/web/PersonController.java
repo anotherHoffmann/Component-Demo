@@ -12,7 +12,7 @@ import javax.ws.rs.core.UriBuilder;
 import java.util.List;
 
 /**
- * Das Nutzen von Response ist nicht klausurrelevant
+ * Das Nutzen von Response ist nicht klausurrelevant. Klausurrelevante Beispiele in {@link KaffeeController}
  */
 @Path("/person")
 public class PersonController {

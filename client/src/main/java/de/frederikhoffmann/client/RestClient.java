@@ -8,7 +8,7 @@ import javax.ws.rs.client.WebTarget;
 /**
  * Hello world!
  */
-public class App {
+public class RestClient {
 	public static void main(String[] args) {
 		shortExample();
 		longExample();
