@@ -53,9 +53,13 @@ public class RestClient {
 	}
 
 	public static void square() {
-		System.out.println(ClientBuilder.newClient().target("http://localhost:8080/web/primitive/square")
-				// queryParams sind nicht klausurrelevant
-				.queryParam("number", 4).request().get().readEntity(Double.class));
+		// queryParams sind nicht klausurrelevant
+		System.out.println(ClientBuilder.newClient()
+				.target("http://localhost:8080/web/primitive/square")
+				.queryParam("number", 4)
+				.request()
+				.get()
+				.readEntity(Double.class));
 	}
 
 	public static String createPerson() {
@@ -63,7 +67,7 @@ public class RestClient {
 		String location = ClientBuilder.newClient()
 				.target(personTargetString)
 				.request()
-				.post(Entity.entity(new Person("Frederik Hoffmann", new Adresse("Yannikweg 8", "44143", "Hanneshausen"),
+				.post(Entity.entity(new Person("Frederik Hoffmann", new Adresse("Yannikweg 8", "12345", "Hanneshausen"),
 						new Firma("Dennis Inc.", new ArrayList<Person>())), MediaType.APPLICATION_XML))
 				.getHeaderString("Location");
 		System.out.println(location);
