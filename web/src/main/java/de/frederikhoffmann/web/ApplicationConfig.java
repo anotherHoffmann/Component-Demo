@@ -10,7 +10,7 @@ public class ApplicationConfig extends Application {
 	@Override
 	public Set<Class<?>> getClasses() {
 		HashSet<Class<?>> classes = new HashSet<>();
-		classes.add(KaffeeController.class);
+		classes.add(PrimitiveController.class);
 		classes.add(PersonController.class);
 		return classes;
 	}
