@@ -5,19 +5,29 @@ import de.frederikhoffmann.ejb.firma.Firma;
 import de.frederikhoffmann.ejb.person.Person;
 
 import javax.ws.rs.client.*;
+import javax.ws.rs.core.GenericEntity;
+import javax.ws.rs.core.GenericType;
 import javax.ws.rs.core.MediaType;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Hello world!
  */
 public class RestClient {
+
+	private static final String personTargetString = "http://localhost:8080/web/person";
+
 	public static void main(String[] args) {
 		shortExample();
 		longExample();
 		square();
 		String location = createPerson();
-		readPerson(location);
+		Person person = readPerson(location);
+		readAllPersons();
+		person.setName("Colin Althöfer");
+		updatePerson(person);
+		deletePerson(person);
 	}
 
 	private static void shortExample() {
@@ -44,18 +54,14 @@ public class RestClient {
 	}
 
 	public static void square() {
-		System.out.println(ClientBuilder.newClient()
-				.target("http://localhost:8080/web/primitive/square")
+		System.out.println(ClientBuilder.newClient().target("http://localhost:8080/web/primitive/square")
 				// queryParams sind nicht klausurrelevant
-				.queryParam("number", 4)
-				.request()
-				.get()
-				.readEntity(Double.class));
+				.queryParam("number", 4).request().get().readEntity(Double.class));
 	}
 
 	public static String createPerson() {
 		String location = ClientBuilder.newClient()
-				.target("http://localhost:8080/web/person")
+				.target(personTargetString)
 				.request()
 				.post(Entity.entity(new Person("Frederik Hoffmann", new Adresse("Yannikweg 8", "44143", "Hanneshausen"),
 						new Firma("Dennis Inc.", new ArrayList<Person>())), MediaType.APPLICATION_XML))
@@ -68,6 +74,34 @@ public class RestClient {
 		Person person = ClientBuilder.newClient().target(location).request().get().readEntity(Person.class);
 		System.out.println(person);
 		return person;
+	}
+
+	public static List<Person> readAllPersons() {
+		// Vermutlich nicht klausurrelevant
+		List<Person> personList = ClientBuilder.newClient()
+				.target(personTargetString)
+				.request()
+				.get()
+				.readEntity(new GenericType<List<Person>>() {
+
+				});
+		System.out.println(personList);
+		return personList;
+	}
+
+	public static void updatePerson(Person person) {
+		// vermutlich nicht klausurrelevant
+		ClientBuilder.newClient()
+				.target(personTargetString)
+				.request()
+				.put(Entity.entity(person, MediaType.APPLICATION_XML));
+		System.out.println("Updated");
+	}
+
+	public static void deletePerson(Person person) {
+		// vermutlich nicht klausurrelevant
+		ClientBuilder.newClient().target(personTargetString).path("/" + person.getId()).request().delete();
+		System.out.println("Deleted");
 	}
 
 }
