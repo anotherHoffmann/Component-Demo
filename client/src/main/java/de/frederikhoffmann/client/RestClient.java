@@ -5,7 +5,6 @@ import de.frederikhoffmann.ejb.firma.Firma;
 import de.frederikhoffmann.ejb.person.Person;
 
 import javax.ws.rs.client.*;
-import javax.ws.rs.core.GenericEntity;
 import javax.ws.rs.core.GenericType;
 import javax.ws.rs.core.MediaType;
 import java.util.ArrayList;
@@ -31,7 +30,7 @@ public class RestClient {
 	}
 
 	private static void shortExample() {
-		Double pi = ClientBuilder.newClient()
+		double pi = ClientBuilder.newClient()
 				.target("http://localhost:8080/web/primitive/pi")
 				.request()
 				.get()
@@ -60,6 +59,7 @@ public class RestClient {
 	}
 
 	public static String createPerson() {
+		// Ich bin mir nicht sicher, ob das relevant ist, zur Sicherheit besser lernen
 		String location = ClientBuilder.newClient()
 				.target(personTargetString)
 				.request()
